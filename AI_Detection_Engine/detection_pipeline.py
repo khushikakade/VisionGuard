@@ -24,8 +24,19 @@ class DetectionPipeline:
         
         with torch.no_grad():
             inputs = self.processor(text=self.descriptions, return_tensors="pt", padding=True).to(self.device)
+            # Use main model call to guarantee access to projected text_embeds
             outputs = self.model.get_text_features(**inputs)
-            text_features = outputs
+            
+            # Handle different transformers versions
+            if hasattr(outputs, "text_embeds"):
+                text_features = outputs.text_embeds
+            elif hasattr(outputs, "pooler_output"):
+                text_features = outputs.pooler_output
+            elif isinstance(outputs, tuple):
+                text_features = outputs[1] if len(outputs) > 1 else outputs[0]
+            else:
+                text_features = outputs
+                
             self.text_features = torch.nn.functional.normalize(text_features, p=2, dim=-1)
             
         print("Model loaded and scenarios initialized.")
@@ -38,7 +49,17 @@ class DetectionPipeline:
         with torch.no_grad():
             inputs = self.processor(images=image_pil, return_tensors="pt").to(self.device)
             outputs = self.model.get_image_features(**inputs)
-            image_features = outputs
+            
+            # Handle different transformers versions
+            if hasattr(outputs, "image_embeds"):
+                image_features = outputs.image_embeds
+            elif hasattr(outputs, "pooler_output"):
+                image_features = outputs.pooler_output
+            elif isinstance(outputs, tuple):
+                image_features = outputs[1] if len(outputs) > 1 else outputs[0]
+            else:
+                image_features = outputs
+                
             image_features = torch.nn.functional.normalize(image_features, p=2, dim=-1)
             
             # Cosine similarity
