@@ -96,3 +96,18 @@ timestamp,scenario,score
 2026-03-06 20:47:43,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_204743_abnormal_movement_running.jpg
 2026-03-06 20:47:43,physical_altercation,Physical Altercation,0.2857,snapshots/alert_20260306_204743_physical_altercation.jpg
 2026-03-06 20:47:43,person_falling,Person Falling,0.2711,snapshots/alert_20260306_204743_person_falling.jpg
+2026-03-06 21:43:54,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_214354_abnormal_movement_running.jpg
+2026-03-06 21:43:54,physical_altercation,Physical Altercation,0.2858,snapshots/alert_20260306_214354_physical_altercation.jpg
+2026-03-06 21:43:54,person_falling,Person Falling,0.2713,snapshots/alert_20260306_214354_person_falling.jpg
+2026-03-06 21:43:55,abnormal_movement_running,Abnormal Movement Running,0.2457,snapshots/alert_20260306_214355_abnormal_movement_running.jpg
+2026-03-06 21:43:55,physical_altercation,Physical Altercation,0.2813,snapshots/alert_20260306_214355_physical_altercation.jpg
+2026-03-06 21:43:55,person_falling,Person Falling,0.2744,snapshots/alert_20260306_214355_person_falling.jpg
+2026-03-06 21:43:56,abnormal_movement_running,Abnormal Movement Running,0.247,snapshots/alert_20260306_214356_abnormal_movement_running.jpg
+2026-03-06 21:43:56,physical_altercation,Physical Altercation,0.2807,snapshots/alert_20260306_214356_physical_altercation.jpg
+2026-03-06 21:43:56,suspicious_pacing,Suspicious Pacing,0.2313,snapshots/alert_20260306_214356_suspicious_pacing.jpg
+2026-03-06 21:43:56,person_falling,Person Falling,0.2715,snapshots/alert_20260306_214356_person_falling.jpg
+2026-03-06 21:43:58,abnormal_movement_running,Abnormal Movement Running,0.2466,snapshots/alert_20260306_214358_abnormal_movement_running.jpg
+2026-03-06 21:43:58,physical_altercation,Physical Altercation,0.2697,snapshots/alert_20260306_214358_physical_altercation.jpg
+2026-03-06 21:43:58,person_falling,Person Falling,0.2522,snapshots/alert_20260306_214358_person_falling.jpg
+2026-03-06 21:43:59,abnormal_movement_running,Abnormal Movement Running,0.2568,snapshots/alert_20260306_214359_abnormal_movement_running.jpg
+2026-03-06 21:43:59,physical_altercation,Physical Altercation,0.2832,snapshots/alert_20260306_214359_physical_altercation.jpg
