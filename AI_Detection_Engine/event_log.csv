@@ -127,3 +127,6 @@ timestamp,scenario,score
 2026-03-07 00:54:55,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_005455_physical_altercation.jpg
 2026-03-07 00:55:07,physical_altercation,Physical Altercation,0.2606,snapshots/alert_20260307_005507_physical_altercation.jpg
 2026-03-07 00:55:13,physical_altercation,Physical Altercation,0.2724,snapshots/alert_20260307_005513_physical_altercation.jpg
+2026-03-07 01:39:02,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_013902_physical_altercation.jpg
+2026-03-07 01:39:11,physical_altercation,Physical Altercation,0.2606,snapshots/alert_20260307_013911_physical_altercation.jpg
+2026-03-07 01:39:17,physical_altercation,Physical Altercation,0.2724,snapshots/alert_20260307_013917_physical_altercation.jpg

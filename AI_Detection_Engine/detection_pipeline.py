@@ -65,7 +65,7 @@ class DetectionPipeline:
             # Cosine similarity
             similarities = (image_features @ self.text_features.T).squeeze(0)
             
-        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         
         # 1. Winner-Takes-All Logic: Find the highest score first
         best_idx = torch.argmax(similarities).item()

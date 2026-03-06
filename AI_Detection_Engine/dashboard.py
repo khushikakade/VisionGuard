@@ -176,53 +176,57 @@ def delete_alert(timestamp):
             break
 
 # --- Dynamic Threat Status Logic ---
-current_status_color = "#64748b" # Default Standby
-current_status_text = "Standby"
-recent_score = 0.0
+stats_placeholder = st.empty()
 
-if st.session_state.is_monitoring:
-    if len(st.session_state.alerts_history) > 0:
-        # Check if the most recent alert was within the last 10 seconds
-        latest_alert = st.session_state.alerts_history[0]
-        try:
-            latest_time = datetime.datetime.strptime(latest_alert['timestamp'], "%Y-%m-%d %H:%M:%S")
-            time_diff = (datetime.datetime.now() - latest_time).total_seconds()
-        except ValueError:
-            time_diff = 0
+def update_stats(container):
+    current_status_color = "#64748b" # Default Standby
+    current_status_text = "Standby"
+    
+    if st.session_state.is_monitoring:
+        if len(st.session_state.alerts_history) > 0:
+            latest_alert = st.session_state.alerts_history[0]
+            try:
+                latest_time = datetime.datetime.strptime(latest_alert['timestamp'], "%Y-%m-%d %H:%M:%S")
+                # Calculate time_diff using local time
+                time_diff = (datetime.datetime.now().astimezone() - latest_time.replace(tzinfo=datetime.datetime.now().astimezone().tzinfo)).total_seconds()
+            except ValueError:
+                time_diff = 0
+                
+            recent_score = latest_alert['score']
             
-        recent_score = latest_alert['score']
-        
-        if time_diff < 10:
-            if recent_score > 0.8:
-                current_status_color = "#dc2626" # Red - High Threat
-                current_status_text = "High Alert"
+            if time_diff < 10:
+                if recent_score > 0.8:
+                    current_status_color = "#dc2626" # Red - High Threat
+                    current_status_text = "High Alert"
+                else:
+                    current_status_color = "#eab308" # Yellow - Warning
+                    current_status_text = "Warning"
             else:
-                current_status_color = "#eab308" # Yellow - Warning
-                current_status_text = "Warning"
+                current_status_color = "#16a34a" # Green - Clear
+                current_status_text = "Clear"
         else:
-            current_status_color = "#16a34a" # Green - Clear
+            current_status_color = "#16a34a"
             current_status_text = "Clear"
-    else:
-        current_status_color = "#16a34a"
-        current_status_text = "Clear"
 
-# --- Statistics Cards ---
-st.markdown("""
-<div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-    <div class="stat-card" style="flex: 1;">
-        <h3>Total Alerts Recorded</h3>
-        <div class="value">{}</div>
+    # --- Statistics Cards ---
+    container.markdown("""
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+        <div class="stat-card" style="flex: 1;">
+            <h3>Total Alerts Recorded</h3>
+            <div class="value">{}</div>
+        </div>
+        <div class="stat-card" style="flex: 1;">
+            <h3>Threat Status</h3>
+            <div class="value" style="color: {};">{}</div>
+        </div>
     </div>
-    <div class="stat-card" style="flex: 1;">
-        <h3>Threat Status</h3>
-        <div class="value" style="color: {};">{}</div>
-    </div>
-</div>
-""".format(
-    len(st.session_state.alerts_history),
-    current_status_color,
-    current_status_text
-), unsafe_allow_html=True)
+    """.format(
+        len(st.session_state.alerts_history),
+        current_status_color,
+        current_status_text
+    ), unsafe_allow_html=True)
+
+update_stats(stats_placeholder)
 
 # --- Sidebar Configuration ---
 col1, col2, col3 = st.sidebar.columns([1, 4, 1])
@@ -383,7 +387,7 @@ if st.session_state.is_monitoring:
                     for alert in new_alerts:
                         # Pre-compute paths and structure
                         if save_snapshots:
-                            timestamp_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                            timestamp_str = datetime.datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
                             snapshot_path = f"{SNAPSHOT_DIR}/alert_{timestamp_str}_{alert['scenario_key']}.jpg"
                             alert['snapshot'] = snapshot_path
                             
@@ -440,6 +444,9 @@ if st.session_state.is_monitoring:
                                 # Interactive widgets cannot be rendered inside a fast while loop
                                 st.caption("⏸️ Stop monitoring to delete.")
                                 st.divider()
+                
+                # 5. Update Threat Status
+                update_stats(stats_placeholder)
                 
                 st.session_state.last_ui_update = current_time
             
