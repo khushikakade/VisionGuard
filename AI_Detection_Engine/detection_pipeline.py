@@ -18,51 +18,17 @@ class DetectionPipeline:
         self.scenario_names = list(SCENARIOS.keys())
         self.descriptions = [SCENARIOS[name]["description"] for name in self.scenario_names]
         
+        # Temporal buffer: {scenario_name: count}
+        self.detection_buffer = {name: 0 for name in self.scenario_names}
+        self.buffer_threshold = 2 # Must detect in 2 consecutive samples
+        
         with torch.no_grad():
             inputs = self.processor(text=self.descriptions, return_tensors="pt", padding=True).to(self.device)
             outputs = self.model.get_text_features(**inputs)
-            # Ensure we have a tensor (handle different transformers versions)
-            text_features = outputs.pooler_output if hasattr(outputs, 'pooler_output') else outputs
+            text_features = outputs
             self.text_features = torch.nn.functional.normalize(text_features, p=2, dim=-1)
             
         print("Model loaded and scenarios initialized.")
-
-    def process_video(self, video_source=0, sample_rate=1.0):
-        """
-        Processes video from a source (file or camera).
-        sample_rate: seconds between processed frames
-        """
-        cap = cv2.VideoCapture(video_source)
-        if not cap.isOpened():
-            print(f"Error: Could not open video source {video_source}")
-            return
-
-        fps = cap.get(cv2.CAP_PROP_FPS)
-        if fps == 0: fps = 30 # Default for webcams
-        
-        frame_interval = int(fps * sample_rate)
-        frame_count = 0
-        
-        print(f"Starting detection on {video_source}... Press 'q' to stop.")
-        
-        try:
-            while cap.isOpened():
-                ret, frame = cap.read()
-                if not ret:
-                    break
-                
-                if frame_count % frame_interval == 0:
-                    self.detect_scenarios(frame)
-                
-                # Show video feed (optional, for local debugging)
-                cv2.imshow('Smart CCTV Feed', frame)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
-                    
-                frame_count += 1
-        finally:
-            cap.release()
-            cv2.destroyAllWindows()
 
     def detect_scenarios(self, frame):
         # Convert OpenCV BGR to RGB for PIL
@@ -72,28 +38,42 @@ class DetectionPipeline:
         with torch.no_grad():
             inputs = self.processor(images=image_pil, return_tensors="pt").to(self.device)
             outputs = self.model.get_image_features(**inputs)
-            image_features = outputs.pooler_output if hasattr(outputs, 'pooler_output') else outputs
+            image_features = outputs
             image_features = torch.nn.functional.normalize(image_features, p=2, dim=-1)
             
             # Cosine similarity
             similarities = (image_features @ self.text_features.T).squeeze(0)
             
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        
+        # 1. Winner-Takes-All Logic: Find the highest score first
+        best_idx = torch.argmax(similarities).item()
+        best_score = similarities[best_idx].item()
+        best_scenario = self.scenario_names[best_idx]
+        
+        # 2. Threshold Check
+        threshold = SCENARIOS[best_scenario]["threshold"]
+        
         detected_alerts = []
         
-        for i, score in enumerate(similarities):
-            scenario_name = self.scenario_names[i]
-            threshold = SCENARIOS[scenario_name]["threshold"]
+        # 3. Temporal Filtering
+        if best_score > threshold:
+            self.detection_buffer[best_scenario] += 1
             
-            if score > threshold:
+            # Only alert if the same scenario is detected consistently
+            if self.detection_buffer[best_scenario] >= self.buffer_threshold:
                 alert_info = {
                     "timestamp": timestamp,
-                    "scenario_key": scenario_name,
-                    "scenario": scenario_name.replace("_", " ").title(),
-                    "score": round(float(score), 4)
+                    "scenario_key": best_scenario,
+                    "scenario": best_scenario.replace("_", " ").title(),
+                    "score": round(float(best_score), 4)
                 }
-                print(f"[{timestamp}] ALERT DETECTED: {scenario_name} (Score: {score:.4f})")
+                print(f"[{timestamp}] CONFIRMED ALERT: {best_scenario} (Score: {best_score:.4f})")
                 detected_alerts.append(alert_info)
+        else:
+            # Decay buffer if not detected
+            for name in self.detection_buffer:
+                self.detection_buffer[name] = max(0, self.detection_buffer[name] - 1)
         
         return detected_alerts
 
