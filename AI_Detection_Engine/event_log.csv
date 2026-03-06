@@ -1,0 +1,98 @@
+timestamp,scenario,score
+2026-03-06 19:25:53,Abnormal Movement Running,0.2258
+2026-03-06 19:25:53,Physical Altercation,0.2541
+2026-03-06 19:25:59,Abnormal Movement Running,0.2224
+2026-03-06 19:25:59,Fire Or Smoke,0.2302
+2026-03-06 19:26:45,Physical Altercation,0.2558
+2026-03-06 19:27:07,Vandalism Graffiti,0.2505
+2026-03-06 19:30:26,Person Lying Down,0.2658
+2026-03-06 19:30:26,Abnormal Movement Running,0.2347
+2026-03-06 19:30:26,Physical Altercation,0.2785
+2026-03-06 19:30:26,Person Falling,0.261
+2026-03-06 19:30:28,Person Lying Down,0.2909
+2026-03-06 19:30:28,Person Falling,0.2649
+2026-03-06 19:30:28,Slip And Fall,0.252
+2026-03-06 19:30:30,Person Lying Down,0.2991
+2026-03-06 19:30:30,Abnormal Movement Running,0.229
+2026-03-06 19:30:30,Unusual Vehicle Stop,0.2488
+2026-03-06 19:30:30,Person Falling,0.2841
+2026-03-06 19:30:30,Slip And Fall,0.2719
+2026-03-06 19:30:33,Person Lying Down,0.2839
+2026-03-06 19:30:33,Abnormal Movement Running,0.2323
+2026-03-06 19:30:33,Unusual Vehicle Stop,0.2429
+2026-03-06 19:30:33,Person Falling,0.2812
+2026-03-06 19:30:33,Slip And Fall,0.2691
+2026-03-06 19:30:35,Abnormal Movement Running,0.2202
+2026-03-06 19:30:38,Abnormal Movement Running,0.229
+2026-03-06 19:30:38,Masked Person,0.2661
+2026-03-06 19:31:03,Abnormal Movement Running,0.2306
+19:43:59,Person Lying Down,snapshots/alert_20260306_194359_person_lying_down.jpg,3
+19:44:04,Abnormal Movement Running,snapshots/alert_20260306_194404_abnormal_movement_running.jpg,3
+19:44:04,Person Falling,snapshots/alert_20260306_194404_person_falling.jpg,3
+19:44:49,Slip And Fall,snapshots/alert_20260306_194449_slip_and_fall.jpg,3
+2026-03-06 20:15:46,abnormal_movement_running,Abnormal Movement Running,0.2391
+2026-03-06 20:15:46,physical_altercation,Physical Altercation,0.2857
+2026-03-06 20:15:46,person_falling,Person Falling,0.2711
+2026-03-06 20:15:48,abnormal_movement_running,Abnormal Movement Running,0.2456
+2026-03-06 20:15:48,physical_altercation,Physical Altercation,0.2812
+2026-03-06 20:15:48,person_falling,Person Falling,0.2743
+2026-03-06 20:15:50,abnormal_movement_running,Abnormal Movement Running,0.2472
+2026-03-06 20:15:50,physical_altercation,Physical Altercation,0.2809
+2026-03-06 20:15:50,suspicious_pacing,Suspicious Pacing,0.2314
+2026-03-06 20:15:50,person_falling,Person Falling,0.2718
+2026-03-06 20:15:52,abnormal_movement_running,Abnormal Movement Running,0.2466
+2026-03-06 20:15:52,physical_altercation,Physical Altercation,0.2698
+2026-03-06 20:15:52,person_falling,Person Falling,0.2522
+2026-03-06 20:15:55,abnormal_movement_running,Abnormal Movement Running,0.2568
+2026-03-06 20:15:55,physical_altercation,Physical Altercation,0.2834
+2026-03-06 20:27:42,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_202742_abnormal_movement_running.jpg
+2026-03-06 20:27:42,physical_altercation,Physical Altercation,0.2857,snapshots/alert_20260306_202742_physical_altercation.jpg
+2026-03-06 20:27:42,person_falling,Person Falling,0.2711,snapshots/alert_20260306_202742_person_falling.jpg
+2026-03-06 20:27:46,abnormal_movement_running,Abnormal Movement Running,0.2456,snapshots/alert_20260306_202746_abnormal_movement_running.jpg
+2026-03-06 20:27:46,physical_altercation,Physical Altercation,0.2812,snapshots/alert_20260306_202746_physical_altercation.jpg
+2026-03-06 20:27:46,person_falling,Person Falling,0.2743,snapshots/alert_20260306_202746_person_falling.jpg
+2026-03-06 20:27:50,abnormal_movement_running,Abnormal Movement Running,0.2472,snapshots/alert_20260306_202750_abnormal_movement_running.jpg
+2026-03-06 20:27:50,physical_altercation,Physical Altercation,0.2809,snapshots/alert_20260306_202750_physical_altercation.jpg
+2026-03-06 20:27:50,suspicious_pacing,Suspicious Pacing,0.2314,snapshots/alert_20260306_202750_suspicious_pacing.jpg
+2026-03-06 20:27:50,person_falling,Person Falling,0.2718,snapshots/alert_20260306_202750_person_falling.jpg
+2026-03-06 20:27:55,abnormal_movement_running,Abnormal Movement Running,0.2466,snapshots/alert_20260306_202755_abnormal_movement_running.jpg
+2026-03-06 20:27:55,physical_altercation,Physical Altercation,0.2698,snapshots/alert_20260306_202755_physical_altercation.jpg
+2026-03-06 20:27:55,person_falling,Person Falling,0.2522,snapshots/alert_20260306_202755_person_falling.jpg
+2026-03-06 20:28:02,abnormal_movement_running,Abnormal Movement Running,0.2568,snapshots/alert_20260306_202802_abnormal_movement_running.jpg
+2026-03-06 20:28:02,physical_altercation,Physical Altercation,0.2834,snapshots/alert_20260306_202802_physical_altercation.jpg
+2026-03-06 20:44:56,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_204456_abnormal_movement_running.jpg
+2026-03-06 20:44:56,physical_altercation,Physical Altercation,0.2857,snapshots/alert_20260306_204456_physical_altercation.jpg
+2026-03-06 20:44:56,person_falling,Person Falling,0.2711,snapshots/alert_20260306_204456_person_falling.jpg
+2026-03-06 20:45:00,abnormal_movement_running,Abnormal Movement Running,0.2456,snapshots/alert_20260306_204500_abnormal_movement_running.jpg
+2026-03-06 20:45:00,physical_altercation,Physical Altercation,0.2812,snapshots/alert_20260306_204500_physical_altercation.jpg
+2026-03-06 20:45:00,person_falling,Person Falling,0.2743,snapshots/alert_20260306_204500_person_falling.jpg
+2026-03-06 20:45:04,abnormal_movement_running,Abnormal Movement Running,0.2472,snapshots/alert_20260306_204504_abnormal_movement_running.jpg
+2026-03-06 20:45:04,physical_altercation,Physical Altercation,0.2809,snapshots/alert_20260306_204504_physical_altercation.jpg
+2026-03-06 20:45:04,suspicious_pacing,Suspicious Pacing,0.2314,snapshots/alert_20260306_204504_suspicious_pacing.jpg
+2026-03-06 20:45:04,person_falling,Person Falling,0.2718,snapshots/alert_20260306_204504_person_falling.jpg
+2026-03-06 20:45:10,abnormal_movement_running,Abnormal Movement Running,0.2466,snapshots/alert_20260306_204510_abnormal_movement_running.jpg
+2026-03-06 20:45:10,physical_altercation,Physical Altercation,0.2698,snapshots/alert_20260306_204510_physical_altercation.jpg
+2026-03-06 20:45:10,person_falling,Person Falling,0.2522,snapshots/alert_20260306_204510_person_falling.jpg
+2026-03-06 20:46:30,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_204630_abnormal_movement_running.jpg
+2026-03-06 20:46:30,physical_altercation,Physical Altercation,0.2857,snapshots/alert_20260306_204630_physical_altercation.jpg
+2026-03-06 20:46:30,person_falling,Person Falling,0.2711,snapshots/alert_20260306_204630_person_falling.jpg
+2026-03-06 20:46:37,abnormal_movement_running,Abnormal Movement Running,0.2456,snapshots/alert_20260306_204637_abnormal_movement_running.jpg
+2026-03-06 20:46:37,physical_altercation,Physical Altercation,0.2812,snapshots/alert_20260306_204637_physical_altercation.jpg
+2026-03-06 20:46:37,person_falling,Person Falling,0.2743,snapshots/alert_20260306_204637_person_falling.jpg
+2026-03-06 20:46:44,abnormal_movement_running,Abnormal Movement Running,0.2472,snapshots/alert_20260306_204644_abnormal_movement_running.jpg
+2026-03-06 20:46:44,physical_altercation,Physical Altercation,0.2809,snapshots/alert_20260306_204644_physical_altercation.jpg
+2026-03-06 20:46:44,suspicious_pacing,Suspicious Pacing,0.2314,snapshots/alert_20260306_204644_suspicious_pacing.jpg
+2026-03-06 20:46:44,person_falling,Person Falling,0.2718,snapshots/alert_20260306_204645_person_falling.jpg
+2026-03-06 20:46:53,abnormal_movement_running,Abnormal Movement Running,0.2466,snapshots/alert_20260306_204653_abnormal_movement_running.jpg
+2026-03-06 20:46:53,physical_altercation,Physical Altercation,0.2698,snapshots/alert_20260306_204653_physical_altercation.jpg
+2026-03-06 20:46:53,person_falling,Person Falling,0.2522,snapshots/alert_20260306_204653_person_falling.jpg
+2026-03-06 20:47:02,abnormal_movement_running,Abnormal Movement Running,0.2568,snapshots/alert_20260306_204702_abnormal_movement_running.jpg
+2026-03-06 20:47:02,physical_altercation,Physical Altercation,0.2834,snapshots/alert_20260306_204702_physical_altercation.jpg
+2026-03-06 20:47:10,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_204710_abnormal_movement_running.jpg
+2026-03-06 20:47:10,physical_altercation,Physical Altercation,0.2857,snapshots/alert_20260306_204710_physical_altercation.jpg
+2026-03-06 20:47:10,person_falling,Person Falling,0.2711,snapshots/alert_20260306_204710_person_falling.jpg
+2026-03-06 20:47:32,abnormal_movement_running,Abnormal Movement Running,0.2314,snapshots/alert_20260306_204732_abnormal_movement_running.jpg
+2026-03-06 20:47:32,physical_altercation,Physical Altercation,0.2617,snapshots/alert_20260306_204732_physical_altercation.jpg
+2026-03-06 20:47:43,abnormal_movement_running,Abnormal Movement Running,0.2391,snapshots/alert_20260306_204743_abnormal_movement_running.jpg
+2026-03-06 20:47:43,physical_altercation,Physical Altercation,0.2857,snapshots/alert_20260306_204743_physical_altercation.jpg
+2026-03-06 20:47:43,person_falling,Person Falling,0.2711,snapshots/alert_20260306_204743_person_falling.jpg

@@ -78,15 +78,24 @@ class DetectionPipeline:
             # Cosine similarity
             similarities = (image_features @ self.text_features.T).squeeze(0)
             
-        timestamp = time.strftime("%H:%M:%S")
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        detected_alerts = []
         
         for i, score in enumerate(similarities):
             scenario_name = self.scenario_names[i]
             threshold = SCENARIOS[scenario_name]["threshold"]
             
             if score > threshold:
+                alert_info = {
+                    "timestamp": timestamp,
+                    "scenario_key": scenario_name,
+                    "scenario": scenario_name.replace("_", " ").title(),
+                    "score": round(float(score), 4)
+                }
                 print(f"[{timestamp}] ALERT DETECTED: {scenario_name} (Score: {score:.4f})")
-                # In a real system, you'd trigger a callback or send to a message queue here
+                detected_alerts.append(alert_info)
+        
+        return detected_alerts
 
 if __name__ == "__main__":
     # You can pass a video file path here or 0 for webcam

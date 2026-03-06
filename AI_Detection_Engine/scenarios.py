@@ -9,6 +9,7 @@ SCENARIOS = {
         "description": "someone running frantically or moving in an aggressive, agitated manner",
         "threshold": 0.22
     },
+    
     "unusual_vehicle_stop": {
         "description": "a car or vehicle stopped abruptly in the middle of a road or a restricted area",
         "threshold": 0.24
