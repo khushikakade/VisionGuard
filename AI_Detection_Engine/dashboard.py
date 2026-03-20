@@ -8,6 +8,8 @@ from PIL import Image
 import datetime
 import threading
 import queue
+from collections import deque
+import requests
 
 # Set page config
 st.set_page_config(
@@ -19,8 +21,15 @@ st.set_page_config(
 
 # Create storage directories
 SNAPSHOT_DIR = "snapshots"
-if not os.path.exists(SNAPSHOT_DIR):
-    os.makedirs(SNAPSHOT_DIR)
+VIDEO_DIR = "videos"
+for d in [SNAPSHOT_DIR, VIDEO_DIR]:
+    if not os.path.exists(d):
+        os.makedirs(d)
+
+# Configuration
+BUFFER_SECONDS = 5
+FRAME_RATE_ESTIMATE = 10 # Estimated FPS for the buffer
+MAX_BUFFER_SIZE = BUFFER_SECONDS * FRAME_RATE_ESTIMATE
 
 # Custom Styling (Professional Maroon Theme)
 st.markdown("""
@@ -136,6 +145,8 @@ if 'pipeline' not in st.session_state:
     st.session_state.pipeline = None
 if 'alerts_history' not in st.session_state:
     st.session_state.alerts_history = []
+if 'frame_buffer' not in st.session_state:
+    st.session_state.frame_buffer = deque(maxlen=MAX_BUFFER_SIZE)
 if 'is_monitoring' not in st.session_state:
     st.session_state.is_monitoring = False
 
@@ -159,6 +170,23 @@ st.markdown("""
     "Active" if st.session_state.is_monitoring else "Standby"
 ), unsafe_allow_html=True)
 
+# --- WhatsApp Notification Helper ---
+def send_whatsapp_notification(phone, alert_type, score):
+    """Sends a simplified WhatsApp alert via CallMeBot free API"""
+    if not phone: return
+    
+    # CallMeBot Free API for WhatsApp
+    # Note: User must once message +34 644 20 44 15 with 'I allow callmebot to send me messages'
+    # For this prototype, we use a shared system key or guide the user
+    apikey = "1138817" # This is a placeholder/demo key
+    message = f"🚨 *VisionGuard Alert* 🚨\n\n*Type:* {alert_type}\n*Confidence:* {score}\n*Time:* {datetime.datetime.now().strftime('%H:%M:%S')}\n\n_Evidence recorded._"
+    
+    url = f"https://api.callmebot.com/whatsapp.php?phone={phone}&text={requests.utils.quote(message)}&apikey={apikey}"
+    try:
+        requests.get(url, timeout=5)
+    except Exception as e:
+        print(f"WhatsApp Error: {e}")
+
 # --- Sidebar Configuration ---
 if os.path.exists("logo.png"):
     st.sidebar.image("logo.png", width=150)
@@ -172,8 +200,15 @@ video_source = 0 if source_option == "Webcam" else st.sidebar.text_input("File P
 sample_rate = st.sidebar.slider("Detection Interval (s)", 0.5, 5.0, 1.5, help="Seconds between AI analysis frames")
 threshold_mod = st.sidebar.slider("Sensitivity Offset", -0.05, 0.05, 0.0, step=0.01, help="Adjust global detection sensitivity")
 
-# New Option: Save Snapshots
-save_snapshots = st.sidebar.checkbox("Save Incident Snapshots", value=True)
+# New Option: Save Snapshots & Video
+col_a, col_b = st.sidebar.columns(2)
+save_snapshots = col_a.checkbox("Snapshots", value=True)
+save_video = col_b.checkbox("Video Clips", value=True)
+
+st.sidebar.subheader("Emergency Registration")
+whatsapp_number = st.sidebar.text_input("WhatsApp Number", placeholder="+91XXXXXXXXXX", help="Enter number to receive instant alerts")
+if whatsapp_number:
+    st.sidebar.success("✅ Number Registered")
 
 st.sidebar.divider()
 system_status = st.sidebar.empty()
@@ -199,6 +234,23 @@ if 'save_queue' not in st.session_state:
             if save_snapshots:
                 cv2.imwrite(alert['snapshot'], frame)
             
+            # Save Video Segment
+            if 'video_buffer' in alert and alert['video_buffer']:
+                video_path = alert['video_path']
+                height, width, _ = frame.shape
+                fourcc = cv2.VideoWriter_fourcc(*'avc1') # Use H.264
+                if os.name == 'nt': # Windows fallback
+                    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                
+                out = cv2.VideoWriter(video_path, fourcc, 10.0, (width, height))
+                for f in alert['video_buffer']:
+                    out.write(f)
+                out.release()
+            
+            # Send WhatsApp
+            if alert.get('send_whatsapp') and alert.get('phone'):
+                send_whatsapp_notification(alert['phone'], alert['scenario'], alert['score'])
+
             # Append to CSV
             df_new = pd.DataFrame([alert])
             if not os.path.exists(log_file):
@@ -259,6 +311,9 @@ if st.session_state.is_monitoring:
                 st.session_state.is_monitoring = False
                 break
             
+            # Maintain rolling buffer
+            st.session_state.frame_buffer.append(frame.copy())
+            
             # AI Detection Step
             if int(frame_count) % int(max(1, frame_interval)) == 0:
                 # Perform detection
@@ -271,6 +326,17 @@ if st.session_state.is_monitoring:
                             timestamp_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                             snapshot_path = f"{SNAPSHOT_DIR}/alert_{timestamp_str}_{alert['scenario_key']}.jpg"
                             alert['snapshot'] = snapshot_path
+                        
+                        if save_video:
+                            timestamp_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                            video_path = f"{VIDEO_DIR}/incident_{timestamp_str}_{alert['scenario_key']}.mp4"
+                            alert['video_path'] = video_path
+                            # Carry over the last few seconds of video
+                            alert['video_buffer'] = list(st.session_state.frame_buffer)
+                            
+                        # Set WhatsApp flags
+                        alert['send_whatsapp'] = bool(whatsapp_number)
+                        alert['phone'] = whatsapp_number
                             
                         st.session_state.alerts_history.insert(0, alert)
                     
@@ -296,6 +362,8 @@ if st.session_state.is_monitoring:
                         for alert in st.session_state.alerts_history:
                             with st.expander(f"⚠️ {alert['scenario']} - {alert['timestamp']}", expanded=False):
                                 st.markdown(f"**Confidence Score:** `{alert['score']}`")
+                                if save_video and 'video_path' in alert:
+                                    st.info(f"📹 Evidence Recorded: `{os.path.basename(alert['video_path'])}`")
                                 if 'snapshot' in alert and os.path.exists(alert['snapshot']):
                                     st.image(alert['snapshot'], use_container_width=True)
                     else:
