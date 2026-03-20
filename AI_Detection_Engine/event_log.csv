@@ -111,3 +111,22 @@ timestamp,scenario,score
 2026-03-06 21:43:58,person_falling,Person Falling,0.2522,snapshots/alert_20260306_214358_person_falling.jpg
 2026-03-06 21:43:59,abnormal_movement_running,Abnormal Movement Running,0.2568,snapshots/alert_20260306_214359_abnormal_movement_running.jpg
 2026-03-06 21:43:59,physical_altercation,Physical Altercation,0.2832,snapshots/alert_20260306_214359_physical_altercation.jpg
+2026-03-07 00:35:05,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_003505_physical_altercation.jpg
+2026-03-07 00:35:16,physical_altercation,Physical Altercation,0.2606,snapshots/alert_20260307_003516_physical_altercation.jpg
+2026-03-07 00:35:22,physical_altercation,Physical Altercation,0.2724,snapshots/alert_20260307_003522_physical_altercation.jpg
+2026-03-07 00:47:13,vandalism_graffiti,Vandalism Graffiti,0.2761,snapshots/alert_20260307_004713_vandalism_graffiti.jpg
+2026-03-07 00:47:22,abnormal_movement_running,Abnormal Movement Running,0.2635,snapshots/alert_20260307_004722_abnormal_movement_running.jpg
+2026-03-07 00:47:34,vandalism_graffiti,Vandalism Graffiti,0.2741,snapshots/alert_20260307_004734_vandalism_graffiti.jpg
+2026-03-07 00:47:39,vandalism_graffiti,Vandalism Graffiti,0.2829,snapshots/alert_20260307_004739_vandalism_graffiti.jpg
+2026-03-07 00:47:45,vandalism_graffiti,Vandalism Graffiti,0.2742,snapshots/alert_20260307_004745_vandalism_graffiti.jpg
+2026-03-07 00:47:51,vandalism_graffiti,Vandalism Graffiti,0.2723,snapshots/alert_20260307_004751_vandalism_graffiti.jpg
+2026-03-07 00:47:57,vandalism_graffiti,Vandalism Graffiti,0.271,snapshots/alert_20260307_004757_vandalism_graffiti.jpg
+2026-03-07 00:48:04,vandalism_graffiti,Vandalism Graffiti,0.2735,snapshots/alert_20260307_004804_vandalism_graffiti.jpg
+2026-03-07 00:52:20,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_005220_physical_altercation.jpg
+2026-03-07 00:53:09,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_005309_physical_altercation.jpg
+2026-03-07 00:54:55,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_005455_physical_altercation.jpg
+2026-03-07 00:55:07,physical_altercation,Physical Altercation,0.2606,snapshots/alert_20260307_005507_physical_altercation.jpg
+2026-03-07 00:55:13,physical_altercation,Physical Altercation,0.2724,snapshots/alert_20260307_005513_physical_altercation.jpg
+2026-03-07 01:39:02,physical_altercation,Physical Altercation,0.263,snapshots/alert_20260307_013902_physical_altercation.jpg
+2026-03-07 01:39:11,physical_altercation,Physical Altercation,0.2606,snapshots/alert_20260307_013911_physical_altercation.jpg
+2026-03-07 01:39:17,physical_altercation,Physical Altercation,0.2724,snapshots/alert_20260307_013917_physical_altercation.jpg

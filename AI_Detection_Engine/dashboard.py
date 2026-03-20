@@ -31,101 +31,123 @@ BUFFER_SECONDS = 5
 FRAME_RATE_ESTIMATE = 10 # Estimated FPS for the buffer
 MAX_BUFFER_SIZE = BUFFER_SECONDS * FRAME_RATE_ESTIMATE
 
-# Custom Styling (Professional Maroon Theme)
+# Custom Styling (Clean Professional Enterprise Theme - Flipped)
 st.markdown("""
     <style>
-    /* Global App Background: Deep Maroon with Subtle Gradient */
+    /* Global App Background: Deep Corporate Maroon (Slightly Toned Down) */
     .stApp {
-        background: linear-gradient(180deg, #5A0F1B 0%, #4A0C16 100%);
+        background: #7A2536;
         color: #ffffff;
     }
     
-    /* Sidebar Background: Lighter Maroon Contrast */
+    /* Sidebar Background: Clean Light Slate */
     [data-testid="stSidebar"] {
-        background-color: #F5B5B5 !important;
-        border-right: 1px solid rgba(255,255,255,0.1) !important;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        background-color: #f8fafc !important;
+        border-right: 1px solid #e2e8f0 !important;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     }
     
-    /* Text overrides to ensure pure readability and clean aesthetics */
-    [data-testid="stSidebar"] p, 
-    [data-testid="stSidebar"] label, 
-    [data-testid="stSidebar"] h1, 
-    [data-testid="stSidebar"] h2 {
-        color: #f8fafc !important;
-        font-weight: 500 !important;
+    /* Text overrides for Sidebar (Dark Text on Light Background) - Max Specificity */
+    /* Target ALL divs and spans recursively within the sidebar */
+    section[data-testid="stSidebar"] div,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
     }
     
+    /* Target the deeply nested internal Streamlit components (Selectbox, Checkbox, Slider) */
+    section[data-testid="stSidebar"] .stSelectbox label,
+    section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] span,
+    section[data-testid="stSidebar"] .stSlider label,
+    section[data-testid="stSidebar"] .stSlider div[data-baseweb="slider"] span,
+    section[data-testid="stSidebar"] .stMarkdown p {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+    
+    /* Main Area Typography (Light Text on Dark Background) */
     .stApp p, .stApp h1, .stApp h2, .stApp h3 {
         color: #ffffff !important;
     }
 
-    /* Override Streamlit Orange Sliders natively -> Deep Red/Maroon */
+    /* Override Streamlit Sliders -> Maroon Theme */
     div[data-baseweb="slider"] div[data-testid="stTickBar"] > div { background-color: rgba(255,255,255,0.4) !important; }
     div[data-baseweb="slider"] div[role="slider"] {
-        background-color: #B3202E !important; 
+        background-color: #fca5a5 !important; /* Lighter maroon/rose for visibility on dark bg */
         border: 2px solid #ffffff !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
     }
     div[data-baseweb="slider"] div[data-testid="stSliderTickBar"] > div { background-color: rgba(255,255,255,0.4) !important; }
     div[data-baseweb="slider"] > div > div > div:nth-child(2) { 
-        background-color: #B3202E !important; /* The filled rail track */
+        background-color: #fca5a5 !important; 
     }
 
-    /* Professional Glassmorphism Cards (Alerts, Expanders) */
+    /* Clean Semi-Transparent Cards (Alerts, Expanders) */
     div[data-testid="stExpander"], .stAlert, .glass-card {
-        background-color: rgba(90, 15, 27, 0.4) !important;
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 0.5rem !important;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
         color: #ffffff !important;
     }
     
     div[data-testid="stExpander"] details summary p {
-        color: #f8fafc !important;
+        color: #ffffff !important;
         font-weight: 600;
     }
 
-    /* Professional Buttons */
+    /* Clean Solid Buttons */
     .stButton > button {
-        background-color: #9E1B28 !important;
-        color: white !important;
-        font-weight: 600 !important;
-        border: 1px solid rgba(255,255,255,0.2) !important;
+        background-color: #7A1F2A !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 6px !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.15) !important;
         transition: all 0.2s ease;
     }
+    
+    /* Maximum Specificity: Force text inside sidebar buttons to be perfectly white */
+    section[data-testid="stSidebar"] div.stButton > button,
+    section[data-testid="stSidebar"] div.stButton > button p,
+    section[data-testid="stSidebar"] div.stButton > button span,
+    section[data-testid="stSidebar"] div.stButton > button div {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+    
     .stButton > button:hover {
-        background-color: #B3202E !important;
-        border-color: rgba(255,255,255,0.4) !important;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+        background-color: #9E1B28 !important;
+        border-color: rgba(255, 255, 255, 0.4) !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
     }
 
     /* Clean Dashboard Title */
     h1 {
         font-weight: 700 !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
         padding-bottom: 1rem;
         margin-bottom: 2rem;
+        color: #ffffff !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
     
     /* Clean Stats Cards */
     .stat-card {
         padding: 1.5rem;
-        background-color: rgba(122, 31, 42, 0.5); /* Sidebar color, but transparent */
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.05); 
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 0.5rem;
         text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     .stat-card h3 {
         color: #e2e8f0 !important; 
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         margin-bottom: 0.25rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
@@ -134,7 +156,7 @@ st.markdown("""
     }
     .stat-card .value {
         color: #ffffff !important; 
-        font-size: 2.5rem;
+        font-size: 2.25rem;
         font-weight: 700;
     }
     </style>
@@ -152,23 +174,70 @@ if 'is_monitoring' not in st.session_state:
 
 st.title("VisionGuard: AI-Powered Semantic Surveillance")
 
-# --- Statistics Cards ---
-st.markdown("""
-<div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-    <div class="stat-card" style="flex: 1;">
-        <h3>Total Alerts Recorded</h3>
-        <div class="value">{}</div>
+def delete_alert(timestamp):
+    # Find the alert by timestamp and delete image + session state
+    for i, alert in enumerate(st.session_state.alerts_history):
+        if alert['timestamp'] == timestamp:
+            if 'snapshot' in alert and os.path.exists(alert['snapshot']):
+                try:
+                    os.remove(alert['snapshot'])
+                except Exception as e:
+                    print(f"Error removing snapshot: {e}")
+            st.session_state.alerts_history.pop(i)
+            break
+
+# --- Dynamic Threat Status Logic ---
+stats_placeholder = st.empty()
+
+def update_stats(container):
+    current_status_color = "#64748b" # Default Standby
+    current_status_text = "Standby"
+    
+    if st.session_state.is_monitoring:
+        if len(st.session_state.alerts_history) > 0:
+            latest_alert = st.session_state.alerts_history[0]
+            try:
+                latest_time = datetime.datetime.strptime(latest_alert['timestamp'], "%Y-%m-%d %H:%M:%S")
+                # Calculate time_diff using local time
+                time_diff = (datetime.datetime.now().astimezone() - latest_time.replace(tzinfo=datetime.datetime.now().astimezone().tzinfo)).total_seconds()
+            except ValueError:
+                time_diff = 0
+                
+            recent_score = latest_alert['score']
+            
+            if time_diff < 10:
+                if recent_score > 0.8:
+                    current_status_color = "#dc2626" # Red - High Threat
+                    current_status_text = "High Alert"
+                else:
+                    current_status_color = "#eab308" # Yellow - Warning
+                    current_status_text = "Warning"
+            else:
+                current_status_color = "#16a34a" # Green - Clear
+                current_status_text = "Clear"
+        else:
+            current_status_color = "#16a34a"
+            current_status_text = "Clear"
+
+    # --- Statistics Cards ---
+    container.markdown("""
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+        <div class="stat-card" style="flex: 1;">
+            <h3>Total Alerts Recorded</h3>
+            <div class="value">{}</div>
+        </div>
+        <div class="stat-card" style="flex: 1;">
+            <h3>Threat Status</h3>
+            <div class="value" style="color: {};">{}</div>
+        </div>
     </div>
-    <div class="stat-card" style="flex: 1;">
-        <h3>System Status</h3>
-        <div class="value" style="color: {};">{}</div>
-    </div>
-</div>
-""".format(
-    len(st.session_state.alerts_history),
-    "#86efac" if st.session_state.is_monitoring else "#94a3b8",
-    "Active" if st.session_state.is_monitoring else "Standby"
-), unsafe_allow_html=True)
+    """.format(
+        len(st.session_state.alerts_history),
+        current_status_color,
+        current_status_text
+    ), unsafe_allow_html=True)
+
+update_stats(stats_placeholder)
 
 # --- WhatsApp Notification Helper ---
 def send_whatsapp_notification(phone, alert_type, score):
@@ -188,10 +257,12 @@ def send_whatsapp_notification(phone, alert_type, score):
         print(f"WhatsApp Error: {e}")
 
 # --- Sidebar Configuration ---
-if os.path.exists("logo.png"):
-    st.sidebar.image("logo.png", width=150)
-else:
-    st.sidebar.image("https://img.icons8.com/fluency/96/security-shield.png", width=80)
+col1, col2, col3 = st.sidebar.columns([1, 4, 1])
+with col2:
+    if os.path.exists("logo.png"):
+        st.image("logo.png", use_container_width=True)
+    else:
+        st.markdown("<div style='text-align: center;'><img src='https://img.icons8.com/fluency/96/security-shield.png' width='120'></div>", unsafe_allow_html=True)
 st.sidebar.header("System Controls")
 
 source_option = st.sidebar.selectbox("Video Source", ["Webcam", "Local File"])
@@ -265,20 +336,68 @@ if 'save_queue' not in st.session_state:
     t.start()
     st.session_state.saver_thread = t
 
-# --- Dashboard Layout ---
-col1, col2 = st.columns([2, 1])
+# --- Dashboard Layout (Tabs) ---
+tab_live, tab_gallery = st.tabs(["Live Monitoring", "Incident Gallery"])
 
-with col1:
-    st.subheader("Live Monitoring Feed")
-    video_placeholder = st.empty()
+with tab_live:
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.subheader("Live Feed")
+        video_placeholder = st.empty()
+        if not st.session_state.is_monitoring:
+            video_placeholder.info("Click 'Start Monitoring' in the sidebar to begin.")
+            
+    with col2:
+        st.subheader("Activity Graph")
+        graph_placeholder = st.empty()
+        
+        # Pre-render chart state
+        if not st.session_state.alerts_history:
+            dummy_data = pd.DataFrame({
+                "Time": pd.Series(dtype='str'), 
+                "Confidence": pd.Series(dtype='float64')
+            }).set_index("Time")
+            graph_placeholder.line_chart(dummy_data, height=200, color="#B3202E")
+        else:
+            with graph_placeholder.container():
+                recent_data = st.session_state.alerts_history[:15]
+                chart_df = pd.DataFrame([{
+                    "Time": d["timestamp"][-6:], 
+                    "Confidence": d["score"]
+                } for d in reversed(recent_data)]).set_index("Time")
+                st.line_chart(chart_df, height=200, color="#B3202E")
+            
+        st.subheader("Recent Alerts")
+        alerts_placeholder = st.empty()
+        
+        # Pre-render alerts list
+        if not st.session_state.alerts_history:
+            alerts_placeholder.caption("No alerts detected yet.")
+        else:
+            with alerts_placeholder.container():
+                for alert in st.session_state.alerts_history[:3]:
+                    st.markdown(f"**[{alert['timestamp'][-6:]}]** {alert['scenario']} (`{alert['score']}`)")
+
+with tab_gallery:
+    st.subheader("Historical Incident Snapshots")
+    gallery_placeholder = st.empty()
+    
+    # Pre-render gallery history (Only statically render if not looping to avoid duplicate keys)
     if not st.session_state.is_monitoring:
-        video_placeholder.info("Click 'Start Monitoring' in the sidebar to begin.")
-
-with col2:
-    st.subheader("Real-time Alerts")
-    alerts_placeholder = st.empty()
-    if not st.session_state.alerts_history:
-        alerts_placeholder.caption("No alerts detected yet.")
+        if not st.session_state.alerts_history:
+            gallery_placeholder.info("No recorded incidents to display.")
+        else:
+            with gallery_placeholder.container():
+                cols = st.columns(3)
+                for idx, alert in enumerate(st.session_state.alerts_history):
+                    with cols[idx % 3]:
+                        st.markdown(f"**{alert['scenario']}**")
+                        st.caption(f"Score: {alert['score']} | {alert['timestamp']}")
+                        if 'snapshot' in alert and os.path.exists(alert['snapshot']):
+                            st.image(alert['snapshot'], use_container_width=True)
+                        st.button("🗑️ Delete", key=f"del_{alert['timestamp']}", on_click=delete_alert, args=(alert['timestamp'],), use_container_width=True)
+                        st.divider()
 
 # --- Monitoring Logic ---
 log_file = "event_log.csv"
@@ -323,7 +442,7 @@ if st.session_state.is_monitoring:
                     for alert in new_alerts:
                         # Pre-compute paths and structure
                         if save_snapshots:
-                            timestamp_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                            timestamp_str = datetime.datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
                             snapshot_path = f"{SNAPSHOT_DIR}/alert_{timestamp_str}_{alert['scenario_key']}.jpg"
                             alert['snapshot'] = snapshot_path
                         
@@ -356,7 +475,18 @@ if st.session_state.is_monitoring:
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 video_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
                 
-                # 2. Update Alerts Panel
+                # 2. Update Activity Graph
+                with graph_placeholder.container():
+                    if st.session_state.alerts_history:
+                        # Extract the last 15 alerts for the mini chart
+                        recent_data = st.session_state.alerts_history[:15]
+                        chart_df = pd.DataFrame([{
+                            "Time": d["timestamp"][-6:], # Just HHMMSS for brevity
+                            "Confidence": d["score"]
+                        } for d in reversed(recent_data)]).set_index("Time")
+                        st.line_chart(chart_df, height=200, color="#B3202E")
+                
+                # 3. Update Live Alerts Panel
                 with alerts_placeholder.container():
                     if st.session_state.alerts_history:
                         for alert in st.session_state.alerts_history:
@@ -368,6 +498,25 @@ if st.session_state.is_monitoring:
                                     st.image(alert['snapshot'], use_container_width=True)
                     else:
                         st.caption("Monitoring active... no threats detected.")
+                        
+                # 4. Update Incident Gallery Grid
+                with gallery_placeholder.container():
+                    if not st.session_state.alerts_history:
+                        st.info("No recorded incidents to display.")
+                    else:
+                        cols = st.columns(3)
+                        for idx, alert in enumerate(st.session_state.alerts_history):
+                            with cols[idx % 3]:
+                                st.markdown(f"**{alert['scenario']}**")
+                                st.caption(f"Score: {alert['score']} | {alert['timestamp']}")
+                                if 'snapshot' in alert and os.path.exists(alert['snapshot']):
+                                    st.image(alert['snapshot'], use_container_width=True)
+                                # Interactive widgets cannot be rendered inside a fast while loop
+                                st.caption("⏸️ Stop monitoring to delete.")
+                                st.divider()
+                
+                # 5. Update Threat Status
+                update_stats(stats_placeholder)
                 
                 st.session_state.last_ui_update = current_time
             
