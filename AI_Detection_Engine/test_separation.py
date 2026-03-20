@@ -14,7 +14,11 @@ def test_scenario_separation():
     
     with torch.no_grad():
         inputs = processor(text=descriptions, return_tensors="pt", padding=True).to(device)
-        text_features = model.get_text_features(**inputs)
+        outputs = model.get_text_features(**inputs)
+        # Handle different transformers output formats
+        text_features = outputs.pooler_output if hasattr(outputs, 'pooler_output') else outputs
+        if text_features.dim() == 1:
+            text_features = text_features.unsqueeze(0)
         text_features = torch.nn.functional.normalize(text_features, p=2, dim=-1)
         
         # Calculate cross-similarity between all scenario descriptions

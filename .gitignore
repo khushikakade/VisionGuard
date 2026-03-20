@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Project Specific
+error.log
+snapshots/
+videos/*
+!videos/.gitkeep
+event_log.csv
+
+# AI Models
+*.pt
+*.pth
+*.h5
+
+# OS
+.DS_Store
+Thumbs.db

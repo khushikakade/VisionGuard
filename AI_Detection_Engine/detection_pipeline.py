@@ -25,7 +25,8 @@ class DetectionPipeline:
         with torch.no_grad():
             inputs = self.processor(text=self.descriptions, return_tensors="pt", padding=True).to(self.device)
             outputs = self.model.get_text_features(**inputs)
-            text_features = outputs
+            # Handle different transformers output formats
+            text_features = outputs.pooler_output if hasattr(outputs, 'pooler_output') else outputs
             self.text_features = torch.nn.functional.normalize(text_features, p=2, dim=-1)
             
         print("Model loaded and scenarios initialized.")
@@ -38,7 +39,8 @@ class DetectionPipeline:
         with torch.no_grad():
             inputs = self.processor(images=image_pil, return_tensors="pt").to(self.device)
             outputs = self.model.get_image_features(**inputs)
-            image_features = outputs
+            # Handle different transformers output formats
+            image_features = outputs.pooler_output if hasattr(outputs, 'pooler_output') else outputs
             image_features = torch.nn.functional.normalize(image_features, p=2, dim=-1)
             
             # Cosine similarity

@@ -2,63 +2,63 @@
 
 SCENARIOS = {
     "person_lying_down": {
-        "description": "a person lying motionless on the ground or floor, potentially injured or collapsed",
-        "threshold": 0.26
+        "description": "person lying completely flat on the ground, unconscious body on floor, someone lying motionless",
+        "threshold": 0.12
     },
     "abnormal_movement_running": {
-        "description": "a person running frantically, sprinting away in a panic, or moving with aggressive haste",
-        "threshold": 0.24
+        "description": "one person running very fast, individual sprinting outdoors, someone fleeing quickly",
+        "threshold": 0.1
     },
     "unusual_vehicle_stop": {
-        "description": "a stationary car parked abruptly in a restricted area or blocking the middle of a road",
-        "threshold": 0.25
+        "description": "parked car blocking traffic, stopped vehicle making a hazard",
+        "threshold": 0.12
     },
     "climbing_fence": {
-        "description": "a person actively scaling or climbing over a tall security fence, gate, or brick wall",
-        "threshold": 0.27
+        "description": "person climbing over a tall fence, someone scaling a barrier wall",
+        "threshold": 0.12
     },
     "unattended_baggage": {
-        "description": "a solitary suitcase, backpack, or cardboard box left abandoned on the floor in a public hallway",
-        "threshold": 0.28
+        "description": "abandoned luggage bag left alone, unattended backpack on the floor",
+        "threshold": 0.15
     },
     "brandishing_weapon": {
-        "description": "a person holding a handgun or a large unsheathed knife in a threatening or aggressive posture",
-        "threshold": 0.29
+        "description": "person holding a gun, someone pointing a firearm, individual wielding a knife",
+        "threshold": 0.1
     },
     "fire_or_smoke": {
-        "description": "bright orange flames, fire, or thick plumes of dark smoke rising in an indoor or outdoor area",
-        "threshold": 0.24
+        "description": "large uncontrolled fire flames, thick black smoke billowing",
+        "threshold": 0.08
     },
     "physical_altercation": {
-        "description": "two or more people engaged in a physical fight, wrestling, pushing, or punching each other violently",
-        "threshold": 0.26
+        "description": "two aggressive people trading punches, violent brawl between multiple people",
+        "threshold": 0.15
     },
     "masked_person": {
-        "description": "a person with their face fully covered by a ski mask, balaclava, or hood in a suspicious setting",
-        "threshold": 0.27
+        "description": "person wearing a ski mask covering face, individual hiding face with balaclava",
+        "threshold": 0.12
     },
     "crowd_gathering": {
-        "description": "a dense cluster or large mob of people gathering rapidly in a confined public space",
-        "threshold": 0.25
+        "description": "large dense crowd of many people, huge group of individuals congregating",
+        "threshold": 0.15
     },
     "vandalism_graffiti": {
-        "description": "a person spray painting a wall with graffiti or intentionally breaking property like windows",
-        "threshold": 0.26
+        "description": "person spray painting graffiti on a wall, someone defacing property",
+        "threshold": 0.12
     },
     "suspicious_pacing": {
-        "description": "a person loitering and pacing back and forth nervously while looking around at their surroundings",
-        "threshold": 0.24
+        "description": "solitary person loitering and looking around, single individual walking back and forth alone",
+        "threshold": 0.1
     },
     "forced_entry": {
-        "description": "a person using a tool to pry open a door or smashing a glass window to gain unauthorized entry",
-        "threshold": 0.28
+        "description": "person breaking a glass window, someone prying open a locked door",
+        "threshold": 0.12
     },
     "person_falling": {
-        "description": "a person in the middle of falling down, losing balance, or collapsing onto the ground",
-        "threshold": 0.26
+        "description": "person tripping and falling down to the floor, individual tumbling headfirst down stairs, someone taking a hard fall",
+        "threshold": 0.1
     },
     "slip_and_fall": {
-        "description": "a person slipping on a wet surface and landing hard on their back or side on the floor",
-        "threshold": 0.26
+        "description": "person slipping on wet floor and crashing down",
+        "threshold": 0.12
     }
 }
